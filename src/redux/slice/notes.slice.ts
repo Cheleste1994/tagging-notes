@@ -32,9 +32,12 @@ const notesSlice = createSlice({
 
       state[indexNotes].isFavorite = !state[indexNotes].isFavorite;
     },
+    deleteNote: (state, { payload }: { payload: number }) =>
+      state.filter((note) => note.id !== payload),
   },
 });
 
-export const { addNote, toogleComplete, toogleFavorite } = notesSlice.actions;
+export const { addNote, toogleComplete, toogleFavorite, deleteNote } =
+  notesSlice.actions;
 
 export default notesSlice.reducer;
