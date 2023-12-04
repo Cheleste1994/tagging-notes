@@ -3,8 +3,11 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import React from 'react';
 import styles from './Header.module.scss';
 import { Link, NavLink } from 'react-router-dom';
+import { useAppSelector } from '../../redux/hooks/hooks';
 
 export default function Header(): JSX.Element {
+  const notes = useAppSelector((store) => store.notesReducer);
+
   return (
     <header className={styles.header}>
       <div>
@@ -14,7 +17,10 @@ export default function Header(): JSX.Element {
         to={'/favorite'}
         className={({ isActive }) => (isActive ? styles.active : '')}
       >
-        <Badge badgeContent={5} color="secondary">
+        <Badge
+          badgeContent={notes.filter((note) => note.isFavorite).length}
+          color="secondary"
+        >
           <FavoriteBorderIcon />
         </Badge>
       </NavLink>
