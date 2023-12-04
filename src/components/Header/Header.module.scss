@@ -1,5 +1,4 @@
 .header {
-  background-color: rgba(0, 255, 255, 0.274);
   height: 100px;
   display: flex;
   flex-wrap: nowrap;
@@ -11,11 +10,5 @@
     font-size: 2rem;
     user-select: none;
     cursor: pointer;
-  }
-
-  div:last-child {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 10px;
   }
 }
