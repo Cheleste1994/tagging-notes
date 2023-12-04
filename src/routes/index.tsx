@@ -5,6 +5,7 @@ import LogoLoad from '../components/LogoLoad/LogoLoad';
 import PageError from './404/PageError';
 
 const Home = lazy(() => import('./HomePage/HomePage'));
+const FavoritePage = lazy(() => import('./FavoritePage/FavoritePage'));
 
 const Router = (): React.JSX.Element => (
   <Routes>
@@ -24,6 +25,7 @@ const Router = (): React.JSX.Element => (
       }
     >
       <Route path="/" element={<Home />} />
+      <Route path="/favorite" element={<FavoritePage />} />
       <Route path="*" element={<PageError />} />
     </Route>
   </Routes>
