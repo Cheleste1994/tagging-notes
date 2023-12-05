@@ -7,14 +7,7 @@ export type Notes = {
   isFavorite: boolean;
 };
 
-const initialState: Notes[] = [
-  {
-    id: 1,
-    value: 'I wanna go to #shop tomorrow',
-    isComplete: false,
-    isFavorite: false,
-  },
-];
+const initialState: Notes[] = [];
 
 const notesSlice = createSlice({
   name: 'notes',
@@ -49,10 +42,17 @@ const notesSlice = createSlice({
 
       state[indexNotes].value = payload.value;
     },
+    loadNotes: (_, { payload }: { payload: Notes[] }) => payload,
   },
 });
 
-export const { addNote, toogleComplete, toogleFavorite, deleteNote, editNote } =
-  notesSlice.actions;
+export const {
+  addNote,
+  toogleComplete,
+  toogleFavorite,
+  deleteNote,
+  editNote,
+  loadNotes,
+} = notesSlice.actions;
 
 export default notesSlice.reducer;

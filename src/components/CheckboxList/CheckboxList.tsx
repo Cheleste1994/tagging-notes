@@ -20,12 +20,17 @@ import Note from '../Note/Note';
 import CreateIcon from '@mui/icons-material/Create';
 import { TextField } from '@mui/material';
 import DrawIcon from '@mui/icons-material/Draw';
+import { setNotesDb, setTagsDb } from '../../redux/slice/indexedDb.slice';
 
 export default function CheckboxList() {
   const notesStore = useAppSelector((store) => store.notesReducer);
   const { isFilter, filterTags } = useAppSelector(
     (store) => store.filterReducer
   );
+  const { isLoadingDb } = useAppSelector((store) => store.indexedDbReducer);
+  const tagsState = useAppSelector((store) => store.tagsReducer);
+
+  const dispatch = useAppDispatch();
 
   const [notes, setNotes] = useState(notesStore);
 
@@ -49,12 +54,17 @@ export default function CheckboxList() {
     }
   }, [filterTags, isFilter, notesStore]);
 
+  useEffect(() => {
+    if (isLoadingDb && !isFilter) {
+      dispatch(setNotesDb(notes));
+      dispatch(setTagsDb(Object.values(tagsState)));
+    }
+  }, [dispatch, isFilter, isLoadingDb, notes, tagsState]);
+
   const [valueEdit, setValueEdit] = useState<{
     value: string;
     id: number | null;
   }>({ value: '', id: null });
-
-  const dispatch = useAppDispatch();
 
   const handleToggleComplete = (id: number) => {
     dispatch(toogleComplete(id));

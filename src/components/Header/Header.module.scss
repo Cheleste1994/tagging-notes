@@ -12,11 +12,23 @@
     cursor: pointer;
   }
 
-  a:not(.active) {
-    opacity: 1;
+  > a {
+    padding: 10px;
+    border-radius: 100%;
+    transition: all 0.3s ease-in-out;
+  }
+
+  > a:hover:not(.active) {
+    background-color: white;
   }
 }
 
 .active {
-  opacity: 0.7;
+  background-color: white;
+
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.267);
+  }
 }

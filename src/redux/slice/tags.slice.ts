@@ -13,9 +13,14 @@ const tagsSlice = createSlice({
     addTags: (state, { payload }: { payload: string }) => {
       state[payload] = payload;
     },
+    loadTags: (state, { payload }: { payload: string[] }) => {
+      payload.forEach((value) => {
+        state[value] = value;
+      });
+    },
   },
 });
 
-export const { addTags } = tagsSlice.actions;
+export const { addTags, loadTags } = tagsSlice.actions;
 
 export default tagsSlice.reducer;
