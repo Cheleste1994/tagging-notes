@@ -1,10 +1,10 @@
 import React, { lazy, Suspense } from 'react';
 import { Routes, Route, Outlet } from 'react-router-dom';
-import Header from '../components/Header/Header';
 import LogoLoad from '../components/LogoLoad/LogoLoad';
 import PageError from './404/PageError';
 
 const Home = lazy(() => import('./HomePage/HomePage'));
+const Header = lazy(() => import('../components/Header/Header'));
 const FavoritePage = lazy(() => import('./FavoritePage/FavoritePage'));
 
 const Router = (): React.JSX.Element => (
