@@ -7,7 +7,14 @@ export type Notes = {
   isFavorite: boolean;
 };
 
-const initialState: Notes[] = [];
+const initialState: Notes[] = [
+  {
+    id: 1,
+    value: 'I wanna go to #shop tomorrow',
+    isComplete: false,
+    isFavorite: false,
+  },
+];
 
 const notesSlice = createSlice({
   name: 'notes',

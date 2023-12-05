@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks/hooks';
 import {
   deleteNote,
   editNote,
+  Notes,
   toogleComplete,
   toogleFavorite,
 } from '../../redux/slice/notes.slice';
@@ -21,7 +22,32 @@ import { TextField } from '@mui/material';
 import DrawIcon from '@mui/icons-material/Draw';
 
 export default function CheckboxList() {
-  const notes = useAppSelector((store) => store.notesReducer);
+  const notesStore = useAppSelector((store) => store.notesReducer);
+  const { isFilter, filterTags } = useAppSelector(
+    (store) => store.filterReducer
+  );
+
+  const [notes, setNotes] = useState(notesStore);
+
+  useEffect(() => {
+    if (isFilter) {
+      let filterNotes: Notes[] = [];
+
+      filterTags.forEach((tag) => {
+        filterNotes = [
+          ...filterNotes,
+          ...notesStore.filter((note) => note.value.includes(tag)),
+        ];
+      });
+
+      const sortId = filterNotes
+        .sort((a, b) => a.id - b.id)
+        .filter((el, index, arr) => el.id !== arr[index + 1]?.id);
+      setNotes(sortId);
+    } else {
+      setNotes(notesStore);
+    }
+  }, [filterTags, isFilter, notesStore]);
 
   const [valueEdit, setValueEdit] = useState<{
     value: string;
@@ -97,7 +123,7 @@ export default function CheckboxList() {
               disablePadding
             >
               {valueEdit.id === id ? (
-                <ListItemButton dense>
+                <ListItemButton dense onBlur={() => handleEditing(id, value)}>
                   <ListItemIcon>
                     <Checkbox edge="start" checked={isComplete} />
                   </ListItemIcon>
@@ -106,6 +132,9 @@ export default function CheckboxList() {
                     onChange={(e) =>
                       setValueEdit({ ...valueEdit, value: e.target.value })
                     }
+                    sx={{
+                      width: '70%',
+                    }}
                   />
                 </ListItemButton>
               ) : (

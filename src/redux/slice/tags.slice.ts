@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-interface TagsState {
+export interface TagsState {
   [key: string]: string;
 }
 
