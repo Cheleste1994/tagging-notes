@@ -34,10 +34,18 @@ const notesSlice = createSlice({
     },
     deleteNote: (state, { payload }: { payload: number }) =>
       state.filter((note) => note.id !== payload),
+    editNote: (
+      state,
+      { payload }: { payload: { id: number; value: string } }
+    ) => {
+      const indexNotes = state.findIndex(({ id }) => id === payload.id);
+
+      state[indexNotes].value = payload.value;
+    },
   },
 });
 
-export const { addNote, toogleComplete, toogleFavorite, deleteNote } =
+export const { addNote, toogleComplete, toogleFavorite, deleteNote, editNote } =
   notesSlice.actions;
 
 export default notesSlice.reducer;

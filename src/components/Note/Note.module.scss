@@ -1,0 +1,10 @@
+.note {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+
+  button {
+    padding: 0;
+    min-width: max-content;
+  }
+}
